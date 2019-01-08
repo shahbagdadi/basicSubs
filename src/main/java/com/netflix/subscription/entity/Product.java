@@ -17,7 +17,10 @@ public class Product implements Serializable {
 	@Column(name="entitlement_set_id")
 	private int entitlementSetId;
 
-	private int id;
+//	private int id;
+	@Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
 
 	private String sku;
 
@@ -34,11 +37,11 @@ public class Product implements Serializable {
 		this.entitlementSetId = entitlementSetId;
 	}
 
-	public int getId() {
+	public long getId() {
 		return this.id;
 	}
 
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 

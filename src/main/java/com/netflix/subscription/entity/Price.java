@@ -3,7 +3,7 @@ package com.netflix.subscription.entity;
 import java.io.Serializable;
 import javax.persistence.*;
 import java.util.Date;
-
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 /**
  * The persistent class for the price database table.
@@ -27,10 +27,13 @@ public class Price implements Serializable {
 	@Column(name="effective_date")
 	private Date effectiveDate;
 
-	private int id;
+	//private int id;
+	@Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
 
 	@Column(name="product_id")
-	private int productId;
+	private long productId;
 
 	private String status;
 
@@ -69,19 +72,19 @@ public class Price implements Serializable {
 		this.effectiveDate = effectiveDate;
 	}
 
-	public int getId() {
+	public long getId() {
 		return this.id;
 	}
 
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
-	public int getProductId() {
+	public long getProductId() {
 		return this.productId;
 	}
 
-	public void setProductId(int productId) {
+	public void setProductId(long productId) {
 		this.productId = productId;
 	}
 
