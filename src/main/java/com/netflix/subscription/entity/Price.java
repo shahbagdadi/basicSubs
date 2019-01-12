@@ -12,7 +12,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 @Entity
 @Table(name="price")
 @NamedQuery(name="Price.findAll", query="SELECT p FROM Price p")
-public class Price implements Serializable {
+public class Price implements Serializable, Cloneable {
 	private static final long serialVersionUID = 1L;
 
 	private float amount;
@@ -25,6 +25,7 @@ public class Price implements Serializable {
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="effective_date")
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
 	private Date effectiveDate;
 
 	//private int id;
@@ -95,5 +96,15 @@ public class Price implements Serializable {
 	public void setStatus(String status) {
 		this.status = status;
 	}
+
+	@Override
+    public Object clone() {
+        try {
+            return super.clone();
+        }
+        catch (CloneNotSupportedException e) {
+            throw new Error("Unable to clone");
+        }
+    }
 
 }

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.netflix.subscription.core.CacheManager;
 import java.util.List;
+import com.netflix.subscription.core.ResourceNotFoundException;
 
 @RestController
 @RequestMapping("/v1/subscriptions")
@@ -38,7 +39,11 @@ public class PriceController {
     @GetMapping("/prices/{country_code}/products/{product_id}")
     public Price findCountryProductPrice(@PathVariable("country_code") String countryCode, @PathVariable("product_id") long productId)
     {
-        return cacheManager.getPrice(countryCode,productId);
+        Price p = cacheManager.getPrice(countryCode,productId);
+        if (p == null) 
+            throw new ResourceNotFoundException();
+        else
+            return p;
         //return priceRepository.findByCountryProduct(countryCode,productId);
     }
 

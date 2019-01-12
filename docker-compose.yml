@@ -17,8 +17,9 @@ services:
         context: ./
         dockerfile: Dockerfile
       depends_on:
-        - mysqldb
+         - mysqldb
       ports:
         - 8087:8080
       volumes:
         - /data/spring-boot-app
+      command: ["/wait-for-it.sh", "mysqldb:3306", "--", "java","-jar","subscription-pricing-0.0.1-SNAPSHOT.jar"]
