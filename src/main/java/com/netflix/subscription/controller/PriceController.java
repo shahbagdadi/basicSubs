@@ -4,7 +4,7 @@ import com.netflix.subscription.entity.Price;
 import com.netflix.subscription.repository.PriceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
+import com.netflix.subscription.core.CacheManager;
 import java.util.List;
 
 @RestController
@@ -13,6 +13,9 @@ public class PriceController {
 
     @Autowired
     private PriceRepository priceRepository;
+
+    @Autowired
+    private CacheManager cacheManager;
 
 
     @PostMapping("/prices")
@@ -35,7 +38,8 @@ public class PriceController {
     @GetMapping("/prices/{country_code}/products/{product_id}")
     public Price findCountryProductPrice(@PathVariable("country_code") String countryCode, @PathVariable("product_id") long productId)
     {
-        return priceRepository.findByCountryProduct(countryCode,productId);
+        return cacheManager.getPrice(countryCode,productId);
+        //return priceRepository.findByCountryProduct(countryCode,productId);
     }
 
 
