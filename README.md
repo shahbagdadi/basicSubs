@@ -127,16 +127,24 @@ Sample Response :
 ### Build
 1. Clone the repo and compile the code.  
 2. Compile the code and create the jar file.  Note we will run all the tests later when the containers are up.  
-``` ./mvnw clean install -DskipTests ```
+``` 
+./mvnw clean install -DskipTests 
+```
 3. Build and run the docker image. This will build the netflix-subscription-image and the run mysql and the subscription image.  
-``` docker-compose up --build ```
+``` 
+docker-compose up --build 
+```
 
 ### Test
 1. Once the service is up you can run all the tests.  
-``` ./mvnw test ```    
+``` 
+./mvnw test 
+```    
 This will call various integration test to check the APIs that we exposed.   
 2. To run just the price change test  
-``` ./mvnw -Dtest=PriceTest#testPriceChange test ```. 
+``` 
+./mvnw -Dtest=PriceTest#testPriceChange test 
+```
 This tests gets the price for product id=2 and countrycode = US and adds $1 to the amount and schedules it to be active in 5 seconds. The tests waits for a few seconds and validates if the price change is reflected.  
 
 The details on the price tests conducted can be found [here](https://github.com/shahbagdadi/basicSubs/blob/master/src/test/java/com/netflix/subscription/subscriptionapplication/PriceTest.java#L79) 
