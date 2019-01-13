@@ -53,7 +53,7 @@ We want to see how your system supports price changes pushed by country.
 ### Back of envelop calculations
 The basic pricing object consists of product id (int) , ISO 3166 country code (2 char) , ISO 4217 currency code (3 char), amount (double) , status (15 char) 
 So a Price java oject is roughly 500 bytes.
-Assuming there are 100 products and 200 countries in the world, the memory required to cache all active pricing is 500*100*200 = 10MB. Thus all the prices can easily fit in memory of the nodes serving the prices.  
+Assuming there are 100 products and 200 countries in the world, the memory required to cache all active pricing is 500 X 100 X 200 = 10MB. Thus all the prices can easily fit in memory of the nodes serving the prices.  
 So we will load all the active pricing in memory on the API service node on startup.  
 
 ### Caching Design. 
@@ -122,18 +122,18 @@ Sample Response :
 
 #### Pre-Requisites
  - JDK 8
- - Clone the repo
+ - Docker 
 
 ### Build
-1. Clone the repo and in the top level folder run
-2. Compile the code and create the jar file.  Note we will run all the tests later when the containers are up. 
+1. Clone the repo and compile the code.  
+2. Compile the code and create the jar file.  Note we will run all the tests later when the containers are up.  
 ``` ./mvnw clean install -DskipTests ```
 3. Build and run the docker image. This will build the netflix-subscription-image and the run mysql and the subscription image.  
 ``` docker-compose up --build ```
 
 ### Test
 1. Once the service is up you can run all the tests.  
-``` ./mvnw test ```.  
+``` ./mvnw test ```    
 This will call various integration test to check the APIs that we exposed.   
 2. To run just the price change test  
 ``` ./mvnw -Dtest=PriceTest#testPriceChange test ```. 
