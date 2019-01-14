@@ -11,6 +11,8 @@ In order to accurately and effective change the prices of 100M+ customers, we ne
 Design and implement a system that hosts Netflix pricing which will enable us to systematically change prices across all our global customers.  
 We want to see how your system supports price changes pushed by country.
 
+=================================================================================. 
+
 ### Assumptions
    1. A subscriber can only have 1 subscription active at a time.
    2. Limited number of sku’s/products (sku’s < 100) but large customer base 100M+.
@@ -55,6 +57,9 @@ The basic pricing object consists of product id (int) , ISO 3166 country code (2
 So a Price java oject is roughly 500 bytes.
 Assuming there are 100 products and 200 countries in the world, the memory required to cache all active pricing is 500 X 100 X 200 = 10MB. Thus all the prices can easily fit in memory of the nodes serving the prices.  
 So we will load all the active pricing in memory on the API service node on startup.  
+The Price retrieval will be called by client primarily on the following events 
+- To get the latest price when a new user signs up for Netflix subscription. 
+-  Get the latest price on their billing anniversary while generating their invoice. Assuming 150M subscribers, there would be 410K customers whose invoice will be generated everyday.
 
 ### Caching Design. 
 __How long should this be cached ? How do we update this cache when new prices are scheduled?__.  
@@ -121,8 +126,9 @@ Sample Response :
 ## Deploy and Test
 
 #### Pre-Requisites
+Code Tested on  
  - JDK 8
- - Docker 
+ - Docker version 18.06 
 
 ### Build
 1. Clone the repo and compile the code.  
